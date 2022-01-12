@@ -1,0 +1,39 @@
+.app {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    height: 100%;
+}
+
+.app.content-center .main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 5%;
+    border-bottom: 1px solid rgb(215, 217, 226);
+}
+
+.main {
+    padding: 0 5%;
+    background-color: rgb(249, 250, 252);
+    border: 1px solid rgb(215, 217, 226);
+    min-height: calc(100% - 100px - 42px - 2px); /* 100% - min height of header - min height of footer - height of borders */
+}
+
+.footer {
+    padding: 10px 5%;
+    border-top: 1px solid rgb(215, 217, 226);
+    text-align: center;
+}
+
+.logo-link__img {
+    width: 75px;
+}

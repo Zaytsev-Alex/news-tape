@@ -1,0 +1,51 @@
+@import 'https://fonts.googleapis.com/css?family=Lora:400,700';
+
+html, body, #root {
+    height: 100%;
+    min-height: 100%;
+    font-family: 'Lora', serif;
+}
+
+
+.link {
+    position: relative;
+    text-decoration: none;
+    display: inline-block;
+    color: black;
+    padding: 0 1px;
+    transition: color ease 0.3s;
+    z-index: 2;
+}
+
+.link::before, .link::after {
+    content: '';
+    position: absolute;
+    background-color: rgb(1, 182, 245);
+    z-index: -1;
+    height: 10%;
+}
+
+.link::before {
+    width: 0;
+    left: 0;
+    bottom: 0;
+    transition: width ease 0.4s;
+}
+
+
+.link::after {
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    transition: all ease 0.6s;
+}
+
+.link:hover::before {
+    width: 100%;
+}
+
+.link:hover::after {
+    left: 100%;
+    width: 0;
+    transition: all ease 0.2s;
+}
