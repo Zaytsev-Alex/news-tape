@@ -60,7 +60,7 @@ const SignUpPage = ({signUpUser}) => {
                         <Input
                             label="First Name"
                             type="text"
-                            className="rainbow-p-around_medium auth__item"
+                            className="rainbow-p-around_medium auth__item auth__first-name"
                             onChange={changeValueHandlers[FIELD_NAMES.FIRST_NAME]}
                             value={userData[FIELD_NAMES.FIRST_NAME] || ''}
                             labelAlignment="left"
@@ -69,7 +69,7 @@ const SignUpPage = ({signUpUser}) => {
                         <Input
                             label="Second Name"
                             type="text"
-                            className="rainbow-p-around_medium auth__item"
+                            className="rainbow-p-around_medium auth__item auth__last-name"
                             onChange={changeValueHandlers[FIELD_NAMES.LAST_NAME]}
                             value={userData[FIELD_NAMES.LAST_NAME] || ''}
                             labelAlignment="left"
@@ -105,7 +105,7 @@ const SignUpPage = ({signUpUser}) => {
                             label="Sign Up"
                             onClick={onSubmit}
                             variant="brand"
-                            className="rainbow-m-around_medium auth__item"
+                            className="rainbow-m-around_medium auth__item submit-button"
                             disabled={!valid}
                             shaded
                         />

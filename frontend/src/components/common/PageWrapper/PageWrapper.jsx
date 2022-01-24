@@ -5,9 +5,9 @@ import Navigation from './Navigation';
 import Footer from './Footer';
 import './index.css';
 
-const PageWrapper = ({children, className, hideFooter = false, hideHeader = false, hideNavigation = false}) => {
+const PageWrapper = ({children, className = '', hideFooter = false, hideHeader = false, hideNavigation = false}) => {
     return (
-        <section className={`app ${className ? className : ''}`}>
+        <section className={`app ${className}`}>
             {!hideHeader && (
                 <header className="header">
                     <Logo/>

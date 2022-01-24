@@ -56,7 +56,7 @@ const SignInPage = ({signInUser}) => {
                             label="Sign In"
                             onClick={onSubmit}
                             variant="brand"
-                            className="rainbow-m-around_medium auth__item"
+                            className="rainbow-m-around_medium auth__item submit-button"
                             disabled={!validateForm()}
                             shaded
                         />

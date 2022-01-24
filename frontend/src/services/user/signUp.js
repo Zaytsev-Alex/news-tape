@@ -1,4 +1,4 @@
-import {restFetch} from '../../helpers/apiHelpers';
+import {restFetch} from '../../helpers/apiHelper';
 import config from '../../constants/config';
 
 const serverApiAddress = config.serverApiAddress;

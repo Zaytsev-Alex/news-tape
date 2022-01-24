@@ -5,5 +5,6 @@ export default function requireAuth(userData, Component, needToBeUnauthorized = 
     if (!needToBeUnauthorized === !!userData) {
         return () => <Component/>;
     }
-    return <Redirect to={redirectTo}/>;
+    return () => <Redirect to={redirectTo}/>;
 }
+

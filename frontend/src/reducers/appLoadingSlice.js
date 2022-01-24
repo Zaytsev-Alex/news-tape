@@ -29,13 +29,12 @@ const appLoadingSlice = createSlice(
             stopLoading(store, action) {
                 if (action.payload) {
                     const index          = [...store.pendingActions].indexOf(action.payload);
-                    store.pendingActions = [...store.pendingActions.slice(0, index), ...store.pendingActions.slice(index + 1)];
+                    store.pendingActions = index !== -1
+                                           ? [...store.pendingActions.slice(0, index), ...store.pendingActions.slice(index + 1)]
+                                           : store.pendingActions;
                     if (!store.pendingActions.length) {
                         store.loading = false;
                     }
-                }
-                else {
-                    store.loading = false;
                 }
             }
         }

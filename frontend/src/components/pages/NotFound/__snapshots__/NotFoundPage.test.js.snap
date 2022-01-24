@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NotFoundPage tests NotFoundPage should match snapshot 1`] = `
+<div>
+  <section
+    class="app content-center"
+  >
+    <header
+      class="header"
+    >
+      <a
+        class="logo-link"
+        href="/"
+      >
+        <img
+          alt="go to home page"
+          class="logo-link__img"
+          src="logo.svg"
+        />
+      </a>
+    </header>
+    <main
+      class="main"
+    >
+      <article
+        class="sc-btzYZH dSiMTE not-found not-found"
+      >
+        <div>
+          <h1>
+            Page not found
+          </h1>
+          <p>
+            Sorry. We couldn't find the page you're looking for.
+          </p>
+        </div>
+        <a
+          class="not-found__link link"
+          href="/"
+        >
+          Go to home page
+        </a>
+      </article>
+    </main>
+    <footer
+      class="footer"
+    >
+      © 2022 Copyright News Tape
+    </footer>
+  </section>
+</div>
+`;
