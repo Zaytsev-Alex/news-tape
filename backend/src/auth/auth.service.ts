@@ -15,16 +15,13 @@ export class AuthService {
     }
 
     async signUp(signUpDto: SignUpDto): Promise<IAuthResponse> {
-        const user = await this.usersService.create(signUpDto);
-        if (signUpDto.requestEditor) {
-            await this.usersService;
-        }
+        const user  = await this.usersService.create(signUpDto);
         const token = this.generateToken({email: user.email});
         return {token, ...extractUserView(user)};
     }
 
     async signIn(signInDto: SignInDto): Promise<IAuthResponse> {
-        const user = await this.usersService.login(signInDto);
+        const user  = await this.usersService.login(signInDto);
         const token = this.generateToken({email: user.email});
         return {token, ...extractUserView(user)};
     }
