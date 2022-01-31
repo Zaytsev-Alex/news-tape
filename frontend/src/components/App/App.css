@@ -15,6 +15,11 @@ html, body, #root {
     padding: 0 1px;
     transition: color ease 0.3s;
     z-index: 2;
+    cursor: pointer;
+    background-color: transparent;
+    border: 0;
+    font-size: 1em;
+    font-family: 'Lora', serif;
 }
 
 .link::before, .link::after {

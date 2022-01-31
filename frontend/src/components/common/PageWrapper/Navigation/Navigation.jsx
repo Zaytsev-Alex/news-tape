@@ -1,9 +1,10 @@
 import React from 'react';
+import Logout from './Logout';
 
 const Navigation = () => {
     return (
         <nav>
-            navigation
+            <Logout />
         </nav>
     );
 };
