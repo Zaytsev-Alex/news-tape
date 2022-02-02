@@ -5,6 +5,7 @@ import {getRepositoryToken} from '@nestjs/typeorm';
 import {MockType, repositoryMockFactory} from '../helpers/testUtils';
 import {EditorRequest} from './entities/editor-request.entity';
 import {NotFoundException} from '@nestjs/common';
+import {extractUserView} from '../helpers/utils';
 
 describe('EditorRequestsService', () => {
     let service: EditorRequestsService;
@@ -38,8 +39,9 @@ describe('EditorRequestsService', () => {
 
     describe('findOneById', () => {
         it('should return editor\'s request', async () => {
-            const mockResult = 1;
-            expect(await service.findOneById(mockResult)).toEqual({id: mockResult});
+            const mockResult = {user: userDto, id: 1};
+            repositoryMock.findOne.mockReturnValue(mockResult);
+            expect(await service.findOneById(1)).toEqual(mockResult);
         });
     });
 
@@ -52,17 +54,22 @@ describe('EditorRequestsService', () => {
     });
 
     describe('findAll', () => {
+        const findAndCountMockReturnValue = [[{id: 1, user: userDto}], 1];
+        const paginationQuery             = {take: 10, page: 1};
+
+
         it('should return editor requests', async () => {
-            const mockReturnValue = [{id: 1, user: userDto}, 1];
-            repositoryMock.findAndCount.mockReturnValue(mockReturnValue);
-            expect(await service.findAll({limit: 3, skip: 0})).toEqual(mockReturnValue);
+            repositoryMock.findAndCount.mockReturnValue(findAndCountMockReturnValue);
+            expect((await service.findAll(paginationQuery)).views).toEqual([
+                {id: 1, user: extractUserView(userDto)}
+            ]);
         });
 
         it('search should be executed with given pagination query', async () => {
-            const paginationQuery = {limit: 3, skip: 0};
-            await service.findAll(paginationQuery)
+            repositoryMock.findAndCount.mockReturnValue(findAndCountMockReturnValue);
+            await service.findAll(paginationQuery);
             expect(repositoryMock.findAndCount).toBeCalledWith(
-                expect.objectContaining({skip: paginationQuery.skip, take: paginationQuery.limit})
+                expect.objectContaining({skip: 0, take: paginationQuery.take, relations: ['user']})
             );
         });
     });
@@ -76,6 +83,7 @@ describe('EditorRequestsService', () => {
 
         it('if there is no such request in DB, error should be thrown', async () => {
             repositoryMock.findOne.mockReturnValue(null);
+
             try {
                 await service.remove(1);
             }
@@ -83,6 +91,42 @@ describe('EditorRequestsService', () => {
                 expect(error).toBeDefined();
                 expect(error).toBeInstanceOf(NotFoundException);
             }
+        });
+    });
+
+    describe('save', () => {
+        const mockReturnValue = {id: 1, user: userDto};
+
+        it('should call save method', async () => {
+            await service.save(mockReturnValue);
+            expect(repositoryMock.save).toBeCalledTimes(1);
+            expect(repositoryMock.save).toBeCalledWith(mockReturnValue);
+        });
+
+        it('should return saved request', async () => {
+            repositoryMock.save.mockReturnValue(mockReturnValue);
+            expect(await service.save(mockReturnValue)).toEqual(mockReturnValue);
+        });
+    });
+
+    describe('createAndSave', () => {
+        const mockReturnValue = {id: 1, user: userDto};
+
+        it('should call create method', async () => {
+            await service.createAndSave(mockReturnValue);
+            expect(repositoryMock.create).toBeCalledTimes(1);
+            expect(repositoryMock.create).toBeCalledWith(mockReturnValue);
+        });
+
+        it('should call save method', async () => {
+            await service.createAndSave(mockReturnValue);
+            expect(repositoryMock.save).toBeCalledTimes(1);
+            expect(repositoryMock.save).toBeCalledWith(mockReturnValue);
+        });
+
+        it('should return saved request', async () => {
+            repositoryMock.save.mockReturnValue(mockReturnValue);
+            expect(await service.createAndSave(mockReturnValue)).toEqual(mockReturnValue);
         });
     });
 });

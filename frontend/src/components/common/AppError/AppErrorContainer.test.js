@@ -13,7 +13,7 @@ describe('AppErrorContainer test', () => {
         useSelectorSpy = jest.spyOn(reactRedux, 'useSelector');
         useDispatchSpy = jest.spyOn(reactRedux, 'useDispatch');
         useSelectorSpy.mockReturnValue(appErrorState);
-        useDispatchSpy.mockReturnValue(() => {});
+        useDispatchSpy.mockReturnValue(jest.fn());
     });
 
     afterEach(() => {

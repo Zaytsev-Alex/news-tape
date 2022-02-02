@@ -3,7 +3,7 @@
 exports[`Logout button tests should match snapshot 1`] = `
 <div>
   <button
-    class="link logout"
+    class="link logout navigation__item"
     type="button"
   >
     Logout

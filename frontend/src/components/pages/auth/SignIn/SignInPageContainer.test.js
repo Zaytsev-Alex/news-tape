@@ -2,7 +2,7 @@ import {render} from '@testing-library/react';
 import {BrowserRouter} from 'react-router-dom';
 import SignInPageContainer from './SignInPageContainer';
 import * as reactRedux from 'react-redux';
-import * as signInActions from '../../../../actions/user/signIn';
+import * as signInActions from '../../../../actions/auth/signIn';
 import {enterRequiredFields, submitForm} from './SignInPage.test';
 
 describe('SignInPageContainer tests', () => {

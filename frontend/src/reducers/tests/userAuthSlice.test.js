@@ -1,5 +1,5 @@
 import userAuthReducer, {logout} from '../userAuthSlice';
-import {SIGN_IN_FULFILLED, SIGN_UP_FULFILLED} from '../../constants/actionTypes/user';
+import {SIGN_IN_FULFILLED, SIGN_UP_FULFILLED} from '../../constants/actionTypes/auth';
 
 describe('userAuthSlice tests', () => {
     const applyAction     = (action, initialState) => userAuthReducer(initialState, action);

@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EditorRequestLink tests should match snapshot 1`] = `
+<div>
+  <a
+    class="link navigation__item editor-request"
+    href="/editor-requests"
+  >
+    Editor Requests
+  </a>
+</div>
+`;

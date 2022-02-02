@@ -1,7 +1,7 @@
 export interface IUserView {
-    id: number;
+    id:        number;
     firstName: string;
-    lastName: string;
-    email: string;
-    isAdmin: boolean;
+    lastName:  string;
+    email:     string;
+    isAdmin:   boolean;
 }

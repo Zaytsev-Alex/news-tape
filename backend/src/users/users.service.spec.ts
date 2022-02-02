@@ -11,7 +11,7 @@ import {getHashedPassword} from '../helpers/passwordHelper';
 
 describe('UsersService', () => {
     let service: UsersService;
-    let editorRequestsService: EditorRequestsService;
+    let editorRequestsService: MockType<EditorRequestsService>;
     let repositoryMock: MockType<Repository<User>>;
 
     const createUserDto: CreateUserDto = {
@@ -34,6 +34,7 @@ describe('UsersService', () => {
         isAdmin:      false,
         hashPassword: () => {}
     };
+    const affectedRowsWhileUpdate      = 1;
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
@@ -47,6 +48,8 @@ describe('UsersService', () => {
         service               = module.get<UsersService>(UsersService);
         repositoryMock        = module.get(getRepositoryToken(User));
         editorRequestsService = module.get(EditorRequestsService);
+
+        repositoryMock.update.mockReturnValue({affected: affectedRowsWhileUpdate});
     });
 
     it('should be defined', () => {
@@ -74,7 +77,7 @@ describe('UsersService', () => {
             repositoryMock.findOne.mockReturnValue(null);
             const userWithRequestEditor = {...createUserDto, requestEditor: true};
             await service.create(userWithRequestEditor);
-            expect(editorRequestsService.create).toBeCalledWith(
+            expect(editorRequestsService.createAndSave).toBeCalledWith(
                 expect.objectContaining(
                     {user: userWithRequestEditor}
                 )
@@ -121,8 +124,9 @@ describe('UsersService', () => {
 
         it('user should be updated and become admin if approve is true', async () => {
             repositoryMock.findOne.mockReturnValue(userDto);
+            editorRequestsService.findOneById.mockReturnValue({user: userDto, id: 1});
             await service.updateEditorPermissions(1, {approve: true});
-            expect(repositoryMock.create).toBeCalledWith({isAdmin: true});
+            expect(repositoryMock.update).toBeCalledWith(1, {isAdmin: true});
         });
 
         it('user should not be updated and become admin if approve is false', async () => {
@@ -130,12 +134,27 @@ describe('UsersService', () => {
             await service.updateEditorPermissions(1, {approve: false});
             expect(repositoryMock.create).toBeCalledTimes(0);
         });
+
+        it('error should be thrown when there is no such request', async () => {
+            editorRequestsService.findOneById.mockReturnValue(null);
+            try {
+                await service.updateEditorPermissions(1, {approve: false});
+            }
+            catch (error) {
+                expect(error).toBeDefined();
+                expect(error).toBeInstanceOf(BadRequestException);
+            }
+        });
     });
 
     describe('giveEditorsPermissions', () => {
-        it('editor permissions should be given to passed user', async () => {
-            const updatedUser = await service.giveEditorsPermissions(userDto);
-            expect(updatedUser).toEqual({...userDto, isAdmin: true});
+        it('should call update method with corresponding data', async () => {
+            await service.giveEditorsPermissions(userDto);
+            expect(repositoryMock.update).toBeCalledWith(1, {isAdmin: true});
+        });
+
+        it('should return number of affected rows', async () => {
+            expect(await service.giveEditorsPermissions(userDto)).toBe(affectedRowsWhileUpdate);
         });
     });
 });

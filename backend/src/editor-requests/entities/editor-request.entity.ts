@@ -6,7 +6,7 @@ export class EditorRequest {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @OneToOne(() => User)
+    @OneToOne(() => User, {cascade: true})
     @JoinColumn()
     user: User;
 }

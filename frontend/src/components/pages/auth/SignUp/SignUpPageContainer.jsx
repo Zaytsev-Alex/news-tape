@@ -2,7 +2,7 @@ import React from 'react';
 import SignUpPage from './SignUpPage';
 import createErrorCatchingAction from '../../../../actions/createErrorCatchingAction';
 import {useDispatch} from 'react-redux';
-import signUp from '../../../../actions/user/signUp';
+import signUp from '../../../../actions/auth/signUp';
 
 const SignUpPageContainer = () => {
     const dispatch = useDispatch();

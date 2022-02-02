@@ -8,12 +8,15 @@ export const repositoryMockFactory: () => MockType<Repository<any>> = jest.fn(()
     save:         jest.fn(entity => entity),
     findAndCount: jest.fn(entity => ([entity, 1])),
     remove:       jest.fn(entity => entity),
+    update:       jest.fn(entity => entity),
 }));
 
 export const editorRequestsServiceMockFactory: () => MockType<EditorRequestsService> = () => ({
-    create:      jest.fn((entity) => entity),
-    findOneById: jest.fn((entity) => ({user: entity})),
-    remove:      jest.fn((entity) => entity),
+    create:        jest.fn((entity) => entity),
+    findOneById:   jest.fn((entity) => ({user: entity})),
+    remove:        jest.fn((entity) => entity),
+    createAndSave: jest.fn((entity) => entity),
+    findAll:       jest.fn((entity) => entity)
 });
 
 export const userServiceMockFactory: () => MockType<UsersService> = () => ({

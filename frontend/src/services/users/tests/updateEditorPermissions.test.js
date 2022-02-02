@@ -1,14 +1,11 @@
-import signUpUser from '../signUp';
+import updateEditorPermissions from '../updateEditorPermissions';
 import config from '../../../constants/config';
 
-describe('sign up user service tests', () => {
-    const requestData      = {login: 'login'};
+describe('update user editor\'s permissions service tests', () => {
+    const requestId        = 1;
+    const requestBody      = {approve: true};
     const serverApiAddress = config.serverApiAddress;
-    const requestUrl       = `${serverApiAddress}/auth/sign-up`;
-    const defaultHeaders   = {
-        "Accept":       "application/json",
-        "Content-Type": "application/json"
-    };
+    const requestUrl       = `${serverApiAddress}/users`;
 
     beforeEach(() => {
         global.fetch = jest.fn().mockImplementation(setupFetchStub());
@@ -19,14 +16,13 @@ describe('sign up user service tests', () => {
         delete global.fetch;
     });
 
-    test('signUpUser should make request to sign up endpoint with given body', () => {
-        signUpUser(requestData);
+    test('updateEditorPermissions should make request to corresponding endpoint with given body', () => {
+        updateEditorPermissions(requestId, requestBody);
         expect(global.fetch).toBeCalledWith(
-            requestUrl,
+            `${requestUrl}/${requestId}`,
             expect.objectContaining({
-                                        headers: defaultHeaders,
-                                        method:  'post',
-                                        body:    JSON.stringify(requestData)
+                                        method: 'PATCH',
+                                        body:   JSON.stringify(requestBody)
                                     })
         );
     });

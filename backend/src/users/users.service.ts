@@ -26,13 +26,14 @@ export class UsersService {
             throw new BadRequestException('User with given email already exists.');
         }
 
-        const createdUser = await this.usersRepository.create({...createUserDto});
+        const createdUser = this.usersRepository.create({...createUserDto});
+        const savedUser   = await this.usersRepository.save(createdUser);
 
         if (createUserDto.requestEditor) {
-            this.editorRequestsService.create({user: createdUser});
+            await this.editorRequestsService.createAndSave({user: savedUser});
         }
 
-        return this.usersRepository.save(createdUser);
+        return savedUser;
     }
 
     async login(loginUserDto: LoginUserDto): Promise<User> {
@@ -54,6 +55,10 @@ export class UsersService {
     ): Promise<IUserView> {
         const request = await this.editorRequestsService.findOneById(requestId);
 
+        if (!request) {
+            throw new BadRequestException('There is no request for given user.');
+        }
+
         if (updateEditorPermissions.approve) {
             await this.giveEditorsPermissions(request.user);
         }
@@ -64,9 +69,9 @@ export class UsersService {
         return extractUserView(updatedUser);
     }
 
-    giveEditorsPermissions(user: User): Promise<User> {
-        const updatedUser = this.usersRepository.create({...user, isAdmin: true});
-        return this.usersRepository.save(updatedUser);
+    async giveEditorsPermissions(user: User): Promise<number> {
+        const saveRes = await this.usersRepository.update(user.id, {isAdmin: true});
+        return saveRes.affected;
     }
 
     findOneByEmail(email: string): Promise<User> {

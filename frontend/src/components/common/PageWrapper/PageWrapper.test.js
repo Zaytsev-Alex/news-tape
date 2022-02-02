@@ -6,10 +6,13 @@ import PageWrapper from './index';
 describe('PageWrapper tests', () => {
     let container      = null;
     let useDispatchSpy = null;
+    let useSelector    = null;
 
     beforeEach(() => {
         useDispatchSpy = jest.spyOn(reactRedux, 'useDispatch');
+        useSelector    = jest.spyOn(reactRedux, 'useSelector');
         useDispatchSpy.mockReturnValue(() => Promise.resolve());
+        useSelector.mockReturnValue({});
 
         const renderRes = render(
             <BrowserRouter>

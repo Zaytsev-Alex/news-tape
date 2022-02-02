@@ -12,7 +12,7 @@ describe('RouterSwitch tests', () => {
         useSelectorSpy       = jest.spyOn(reactRedux, 'useSelector');
         const useDispatchSpy = jest.spyOn(reactRedux, 'useDispatch');
         useSelectorSpy.mockReturnValue(loggedInUser);
-        useDispatchSpy.mockReturnValue(() => {});
+        useDispatchSpy.mockReturnValue(jest.fn());
     });
 
     afterEach(() => {

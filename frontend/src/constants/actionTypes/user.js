@@ -2,12 +2,7 @@ import * as actionHelper from '../../helpers/actionHelper';
 
 const PREFIX = 'USER_ACTIONS';
 
-export const SIGN_UP           = `${PREFIX}/SIGN_UP`;
-export const SIGN_UP_FULFILLED = actionHelper.getFulfilledAsyncActionType(SIGN_UP);
-export const SIGN_UP_REJECTED  = actionHelper.getRejectedAsyncActionType(SIGN_UP);
-export const SIGN_UP_PENDING   = actionHelper.getPendingAsyncActionType(SIGN_UP);
-
-export const SIGN_IN           = `${PREFIX}/SIGN_IN`;
-export const SIGN_IN_FULFILLED = actionHelper.getFulfilledAsyncActionType(SIGN_IN);
-export const SIGN_IN_REJECTED  = actionHelper.getRejectedAsyncActionType(SIGN_IN);
-export const SIGN_IN_PENDING   = actionHelper.getPendingAsyncActionType(SIGN_IN);
+export const UPDATE_EDITOR_PERMISSIONS           = `${PREFIX}/UPDATE_EDITOR_PERMISSIONS`;
+export const UPDATE_EDITOR_PERMISSIONS_FULFILLED = actionHelper.getFulfilledAsyncActionType(UPDATE_EDITOR_PERMISSIONS);
+export const UPDATE_EDITOR_PERMISSIONS_REJECTED  = actionHelper.getRejectedAsyncActionType(UPDATE_EDITOR_PERMISSIONS);
+export const UPDATE_EDITOR_PERMISSIONS_PENDING   = actionHelper.getPendingAsyncActionType(UPDATE_EDITOR_PERMISSIONS);

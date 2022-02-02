@@ -1,7 +1,7 @@
 import {render} from '@testing-library/react';
 import {BrowserRouter} from 'react-router-dom';
 import * as reactRedux from 'react-redux';
-import * as signUpActions from '../../../../actions/user/signUp';
+import * as signUpActions from '../../../../actions/auth/signUp';
 import SignUpPageContainer from './SignUpPageContainer';
 import {enterRequiredFields, submitForm} from './SignUpPage.test';
 

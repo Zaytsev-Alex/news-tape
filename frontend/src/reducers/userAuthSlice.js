@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {SIGN_IN_FULFILLED, SIGN_UP_FULFILLED} from '../constants/actionTypes/user';
+import {SIGN_IN_FULFILLED, SIGN_UP_FULFILLED} from '../constants/actionTypes/auth';
 
 const userAuthSlice = createSlice(
     {

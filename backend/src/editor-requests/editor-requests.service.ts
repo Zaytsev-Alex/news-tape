@@ -4,6 +4,9 @@ import {InjectRepository} from '@nestjs/typeorm';
 import {Repository} from 'typeorm';
 import {EditorRequest} from './entities/editor-request.entity';
 import {PaginationDto} from '../helpers/pagination/pagination.dto';
+import paginateResponse, {calculateSkipValue, IPaginatedResponse} from '../helpers/pagination/paginateResponse';
+import {extractEditorRequestView} from '../helpers/utils';
+import IEditorRequestView from './interfaces/IEditorRequestView';
 
 @Injectable()
 export class EditorRequestsService {
@@ -13,17 +16,30 @@ export class EditorRequestsService {
     ) {
     }
 
+    createAndSave(createEditorRequestDto: CreateEditorRequestDto): Promise<EditorRequest> {
+        return this.save(this.create(createEditorRequestDto));
+    }
+
     create(createEditorRequestDto: CreateEditorRequestDto): EditorRequest {
         return this.editorRequestRepository.create({...createEditorRequestDto});
     }
 
-    findAll(paginationDto: PaginationDto): Promise<[EditorRequest[], number]> {
-        const {limit, skip} = paginationDto;
-        const query = {
-            take: limit,
-            skip: skip,
+    save(editorRequest: EditorRequest): Promise<EditorRequest> {
+        return this.editorRequestRepository.save(editorRequest);
+    }
+
+    async findAll(paginationDto: PaginationDto): Promise<IPaginatedResponse<IEditorRequestView>> {
+        const {take, page} = paginationDto;
+        const skip         = calculateSkipValue(page, take);
+        const query        = {
+            take:      take,
+            skip:      skip,
+            relations: ['user'],
         };
-        return this.editorRequestRepository.findAndCount(query);
+
+        return paginateResponse<EditorRequest, IEditorRequestView>(
+            await this.editorRequestRepository.findAndCount(query), page, take, extractEditorRequestView
+        );
     }
 
     async remove(id: number): Promise<EditorRequest> {
@@ -37,6 +53,11 @@ export class EditorRequestsService {
     }
 
     findOneById(id: number): Promise<EditorRequest> {
-        return this.editorRequestRepository.findOne({id});
+        return this.editorRequestRepository.findOne({
+            where: {
+                id: id
+            },
+            relations: ['user']
+        });
     }
 }

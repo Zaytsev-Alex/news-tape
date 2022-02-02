@@ -43,7 +43,7 @@ describe('email validator', () => {
 
 describe('password strength checker', () => {
     test('when there isn\'t passed password, function should return default strength', () => {
-        let password;
+        let password = undefined;
         expect(getPasswordStrength(password)).toBe(PASSWORD_SECURITY_STATES.DEFAULT);
         password = '';
         expect(getPasswordStrength(password)).toBe(PASSWORD_SECURITY_STATES.DEFAULT);

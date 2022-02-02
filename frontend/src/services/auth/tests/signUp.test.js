@@ -1,14 +1,10 @@
-import signInUser from '../signIn';
+import signUpUser from '../signUp';
 import config from '../../../constants/config';
 
-describe('sign in user service tests', () => {
+describe('sign up user service tests', () => {
     const requestData      = {login: 'login'};
     const serverApiAddress = config.serverApiAddress;
-    const requestUrl       = `${serverApiAddress}/auth/sign-in`;
-    const defaultHeaders   = {
-        "Accept":       "application/json",
-        "Content-Type": "application/json"
-    };
+    const requestUrl       = `${serverApiAddress}/auth/sign-up`;
 
     beforeEach(() => {
         global.fetch = jest.fn().mockImplementation(setupFetchStub());
@@ -19,14 +15,13 @@ describe('sign in user service tests', () => {
         delete global.fetch;
     });
 
-    test('signInUser should make request to sign in endpoint with given body', () => {
-        signInUser(requestData);
+    test('signUpUser should make request to sign up endpoint with given body', () => {
+        signUpUser(requestData);
         expect(global.fetch).toBeCalledWith(
             requestUrl,
             expect.objectContaining({
-                                        headers: defaultHeaders,
-                                        method:  'post',
-                                        body:    JSON.stringify(requestData)
+                                        method: 'post',
+                                        body:   JSON.stringify(requestData)
                                     })
         );
     });

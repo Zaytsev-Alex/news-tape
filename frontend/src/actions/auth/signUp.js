@@ -1,6 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {SIGN_UP} from '../../constants/actionTypes/user';
-import signUpUser from '../../services/user/signUp';
+import {SIGN_UP} from '../../constants/actionTypes/auth';
+import signUpUser from '../../services/auth/signUp';
 
 const signUp = createAsyncThunk(
     SIGN_UP,
