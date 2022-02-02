@@ -1,4 +1,4 @@
-import {Body, Controller, Post, UseGuards} from '@nestjs/common';
+import {Body, Controller, HttpCode, Post, UseGuards} from '@nestjs/common';
 import {JwtAuthGuard} from '../auth/jwt-auth.guard';
 import {EditorRequestsService} from './editor-requests.service';
 import {PaginationDto} from '../helpers/pagination/pagination.dto';
@@ -12,6 +12,7 @@ export class EditorRequestsController {
     }
 
     @Post()
+    @HttpCode(200)
     findRequests(@Body() paginationDto: PaginationDto): Promise<IPaginatedResponse<IEditorRequestView>> {
         return this.editorRequestsService.findAll(paginationDto);
     }
