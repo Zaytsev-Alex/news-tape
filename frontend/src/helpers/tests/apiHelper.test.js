@@ -1,5 +1,6 @@
 import {restFetch, restFetchWithToken} from '../apiHelper';
 import * as storeHelper from '../storeHelper';
+import {screen} from '@testing-library/react';
 
 describe('apiHelper tests', () => {
     const responseData   = {};
@@ -32,24 +33,17 @@ describe('apiHelper tests', () => {
         );
     });
 
-    test('promise reject should be returned when ok is false in response', async () => {
+    test('promise reject should be returned when ok is false in response', () => {
         global.fetch = jest.fn().mockImplementation(setupFetchStub(responseData, false));
-        try {
-            await restFetch(requestUrl);
-        }
-        catch (error) {
-            expect(error).toBeDefined();
-        }
+
+        expect(() => restFetch(requestUrl)).rejects.toThrow();
     });
 
-    test('error while requesting should be handled and wrapped', async () => {
+    test('error while requesting should be handled and wrapped', () => {
         global.fetch = jest.fn().mockImplementation(setupFetchStub(responseData, false, true));
-        try {
-            await restFetch(requestUrl);
-        }
-        catch (error) {
-            expect(error).toEqual({data: {message: 'Fetch error'}, status: -1});
-        }
+        expect(
+            () => restFetch(requestUrl)
+        ).rejects.toThrowError({data: {message: 'Fetch error'}, status: -1});
     });
 
     test('restFetchWithToken should add token to request', () => {

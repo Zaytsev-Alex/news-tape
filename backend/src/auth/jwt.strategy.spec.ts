@@ -36,20 +36,16 @@ describe('JwtStrategy', () => {
     });
 
     describe('validate', () => {
-        it('should return user\'s email if user exists', async () => {
+        it('should return user if he exists', async () => {
             usersServiceMock.findOneByEmail.mockReturnValue(userDto);
-            expect(await jwtStrategy.validate({email})).toEqual({login: email});
+            expect(await jwtStrategy.validate({email})).toEqual(userDto);
         });
 
         it('should throw error when user does not exist', async () => {
             usersServiceMock.findOneByEmail.mockReturnValue(null);
-            try {
-                await jwtStrategy.validate({email});
-            }
-            catch (error) {
-                expect(error).toBeDefined();
-                expect(error).toBeInstanceOf(UnauthorizedException);
-            }
+            await expect(
+                async () => await jwtStrategy.validate({email})
+            ).rejects.toThrowError(UnauthorizedException);
         });
     });
 });

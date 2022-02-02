@@ -65,12 +65,10 @@ describe('UsersService', () => {
 
         it('should throw an error while creating an user, when he already exists', async () => {
             repositoryMock.findOne.mockReturnValue({});
-            try {
-                await service.create(createUserDto);
-            } catch (error) {
-                expect(error).toBeDefined();
-                expect(error).toBeInstanceOf(BadRequestException);
-            }
+
+            await expect(
+                async () => await service.create(createUserDto)
+            ).rejects.toThrowError(BadRequestException);
         });
 
         it('should create an editor request, if requestEditor property is true', async () => {
@@ -88,22 +86,18 @@ describe('UsersService', () => {
     describe('login', () => {
         it('error should be thrown, if user does not exist', async () => {
             repositoryMock.findOne.mockReturnValue(null);
-            try {
-                await service.login(loginUserDto);
-            } catch (error) {
-                expect(error).toBeDefined();
-                expect(error).toBeInstanceOf(BadRequestException);
-            }
+
+            await expect(
+                async () => await service.login(loginUserDto)
+            ).rejects.toThrowError(BadRequestException);
         });
 
         it('error should be thrown, if user\'s password is not same as stored', async () => {
             repositoryMock.findOne.mockReturnValue({password: 'wrong password'});
-            try {
-                await service.login(loginUserDto);
-            } catch (error) {
-                expect(error).toBeDefined();
-                expect(error).toBeInstanceOf(BadRequestException);
-            }
+
+            await expect(
+                async () => await service.login(loginUserDto)
+            ).rejects.toThrowError(BadRequestException);
         });
 
         it('user should be returned, if he exists and password is correct', async () => {
@@ -137,13 +131,10 @@ describe('UsersService', () => {
 
         it('error should be thrown when there is no such request', async () => {
             editorRequestsService.findOneById.mockReturnValue(null);
-            try {
-                await service.updateEditorPermissions(1, {approve: false});
-            }
-            catch (error) {
-                expect(error).toBeDefined();
-                expect(error).toBeInstanceOf(BadRequestException);
-            }
+
+            await expect(
+                async () => await service.updateEditorPermissions(1, {approve: false})
+            ).rejects.toThrowError(BadRequestException);
         });
     });
 

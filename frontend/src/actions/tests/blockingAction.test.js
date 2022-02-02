@@ -57,11 +57,8 @@ describe('blockingAction tests', () => {
 
     it('blockingAction should throw error, if it exists in the response', async () => {
         const errorAction = () => ({error: 'error'});
-        try {
-            await createBlockingAction(dispatchMock, errorAction);
-        }
-        catch (error) {
-            expect(error).toBeDefined();
-        }
+        expect(
+            () => createBlockingAction(dispatchMock, errorAction)
+        ).rejects.toThrowError(errorAction().error);
     });
 });

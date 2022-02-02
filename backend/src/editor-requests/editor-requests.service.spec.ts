@@ -84,13 +84,9 @@ describe('EditorRequestsService', () => {
         it('if there is no such request in DB, error should be thrown', async () => {
             repositoryMock.findOne.mockReturnValue(null);
 
-            try {
-                await service.remove(1);
-            }
-            catch (error) {
-                expect(error).toBeDefined();
-                expect(error).toBeInstanceOf(NotFoundException);
-            }
+            await expect(
+                async () => await service.remove(1)
+            ).rejects.toThrowError(NotFoundException);
         });
     });
 

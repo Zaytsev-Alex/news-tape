@@ -3,8 +3,9 @@ import {UsersService} from './users.service';
 import {JwtAuthGuard} from '../auth/jwt-auth.guard';
 import {UpdateEditorPermissionsDto} from './dto/update-editor-permissions.dto';
 import {IUserView} from './interfaces/IUserView';
+import {RolesGuard} from '../auth/roles.guard';
 
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('users')
 export class UsersController {
     constructor(private readonly usersService: UsersService) {

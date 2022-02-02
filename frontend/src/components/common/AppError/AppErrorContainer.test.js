@@ -25,15 +25,11 @@ describe('AppErrorContainer test', () => {
         expect(screen.getByText(errorMessage)).toBeInTheDocument();
     });
 
-    it('Error should be rendered if error is stored in state', () => {
+    it('Error should not be rendered if error is not stored in state', () => {
         useSelectorSpy.mockReturnValue(appStateWithoutError);
-        render(<AppErrorContainer />);
-        try {
-            screen.getByText(errorMessage);
-        }
-        catch (error) {
-            expect(error).toBeDefined();
-        }
+        const {container} = render(<AppErrorContainer />);
+
+        expect(container.querySelector('.app-error')).not.toBeInTheDocument();
     });
 
     it('Clear error function should be called on close error', () => {
