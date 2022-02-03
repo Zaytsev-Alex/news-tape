@@ -2,7 +2,9 @@ import {Injectable} from '@nestjs/common';
 import {CreateNewsDto} from './dto/create-news.dto';
 import {News} from './entities/news.entity';
 import {InjectRepository} from '@nestjs/typeorm';
-import {Repository} from 'typeorm';
+import {FindConditions, Repository} from 'typeorm';
+import {PaginationDto} from '../helpers/pagination/pagination.dto';
+import paginateResponse, {calculateSkipValue, IPaginatedResponse} from '../helpers/pagination/paginateResponse';
 
 @Injectable()
 export class NewsService {
@@ -24,11 +26,17 @@ export class NewsService {
         return this.newsRepository.save(createdNews);
     }
 
-    // findAll() {
-    //     return `This action returns all news`;
-    // }
-    //
-    // findOne(id: number) {
-    //     return `This action returns a #${id} news`;
-    // }
+    async findAll(paginationDto: PaginationDto): Promise<IPaginatedResponse<News>> {
+        const {take, page} = paginationDto;
+        const skip         = calculateSkipValue(page, take);
+        const query        = {take, skip, order: {createdDate: 'ASC'}};
+
+        return paginateResponse<News, News>(
+            await this.newsRepository.findAndCount(query as FindConditions<News>), page, take
+        );
+    }
+
+    findOne(id: number): Promise<News> {
+        return this.newsRepository.findOne(id);
+    }
 }

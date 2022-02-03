@@ -33,7 +33,7 @@ describe('NewsController', () => {
     });
 
     describe('create', () => {
-        it('should call createAndSave service with createNewsDto', async() => {
+        it('should call createAndSave service with createNewsDto', async () => {
             const createAndSaveSpy = jest.spyOn(service, 'createAndSave')
                 .mockReturnValue(Promise.resolve(mockNews));
             await controller.create(createNewsDto);
@@ -41,9 +41,49 @@ describe('NewsController', () => {
             expect(createAndSaveSpy).toBeCalledWith(createNewsDto);
         });
 
-        it('should return saved news item',  async() => {
+        it('should return saved news item',  async () => {
             jest.spyOn(service, 'createAndSave').mockReturnValue(Promise.resolve(mockNews));
             expect(await controller.create(createNewsDto)).toEqual(mockNews);
+        });
+    });
+
+    describe('findOne', () => {
+        it('should call findOne service with given id', async () => {
+            const findOneSpy = jest.spyOn(service, 'findOne')
+                .mockReturnValue(Promise.resolve(mockNews));
+            await controller.findOne(String(mockNews.id));
+
+            expect(findOneSpy).toBeCalledWith(mockNews.id);
+        });
+
+        it('should return found news item',  async () => {
+            jest.spyOn(service, 'findOne').mockReturnValue(Promise.resolve(mockNews));
+            expect(await controller.findOne(String(mockNews.id))).toEqual(mockNews);
+        });
+    });
+
+    describe('findNews', () => {
+        const paginationDto   = {take: 10, page: 1};
+        const paginatedResult = {
+            views:       [mockNews],
+            count:       1,
+            currentPage: paginationDto.page,
+            nextPage:    null,
+            prevPage:    null,
+            lastPage:    paginationDto.page}
+        ;
+
+        it('should call findAll service with given paginationDto', async () => {
+            const findAllSpy = jest.spyOn(service, 'findAll')
+                .mockReturnValue(Promise.resolve(paginatedResult));
+            await controller.findNews(paginationDto);
+
+            expect(findAllSpy).toBeCalledWith(paginationDto);
+        });
+
+        it('should return found news',  async () => {
+            jest.spyOn(service, 'findAll').mockReturnValue(Promise.resolve(paginatedResult));
+            expect(await controller.findNews(paginationDto)).toEqual(paginatedResult);
         });
     });
 });

@@ -4,6 +4,7 @@ import {getRepositoryToken} from '@nestjs/typeorm';
 import {MockType, repositoryMockFactory} from '../helpers/testUtils';
 import {News} from './entities/news.entity';
 import {Repository} from 'typeorm';
+import {extractUserView} from '../helpers/utils';
 
 describe('NewsService', () => {
     let service: NewsService;
@@ -64,6 +65,37 @@ describe('NewsService', () => {
         it('should return saved news item', async () => {
             repositoryMock.save.mockReturnValue(mockNews);
             expect(await service.createAndSave(mockNews)).toEqual(mockNews);
+        });
+    });
+
+    describe('findOne', () => {
+        it('should call findOne method', async () => {
+            await service.findOne(mockNews.id);
+            expect(repositoryMock.findOne).toBeCalledTimes(1);
+            expect(repositoryMock.findOne).toBeCalledWith(mockNews.id);
+        });
+
+        it('should return saved news item', async () => {
+            repositoryMock.findOne.mockReturnValue(mockNews);
+            expect(await service.findOne(mockNews.id)).toEqual(mockNews);
+        });
+    });
+
+    describe('findAll', () => {
+        const findAndCountMockReturnValue = [[mockNews], 1];
+        const paginationQuery             = {take: 10, page: 1};
+
+        it('should return news', async () => {
+            repositoryMock.findAndCount.mockReturnValue(findAndCountMockReturnValue);
+            expect((await service.findAll(paginationQuery)).views).toEqual([mockNews]);
+        });
+
+        it('search should be executed with given pagination query', async () => {
+            repositoryMock.findAndCount.mockReturnValue(findAndCountMockReturnValue);
+            await service.findAll(paginationQuery);
+            expect(repositoryMock.findAndCount).toBeCalledWith(
+                expect.objectContaining({skip: 0, take: paginationQuery.take, order: {createdDate: 'ASC'}})
+            );
         });
     });
 });
