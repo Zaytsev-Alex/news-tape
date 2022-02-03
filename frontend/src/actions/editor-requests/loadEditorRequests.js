@@ -12,6 +12,7 @@ const loadEditorRequests = createAsyncThunk(
         catch (response) {
             throw response.data;
         }
-    });
+    }
+);
 
 export default loadEditorRequests;

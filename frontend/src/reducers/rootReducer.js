@@ -4,6 +4,7 @@ import storage from 'redux-persist/lib/storage';
 import appErrorReducer from './appErrorSlice';
 import appLoadingReducer from './appLoadingSlice';
 import userAuthReducer from './userAuthSlice';
+import newsReducer from './newsSlice';
 
 export const persistorConfig = {
     auth: {key: 'user-auth', storage: storage}
@@ -18,7 +19,8 @@ const createRootReducer = () => combineReducers(
         application: combineReducers(
             {
                 error:   appErrorReducer,
-                loading: appLoadingReducer
+                loading: appLoadingReducer,
+                news:    newsReducer
             }
         )
     }

@@ -7,14 +7,14 @@ import * as loadEditorRequestsActions from '../../../../actions/editor-requests/
 import * as createBlockingActions from '../../../../actions/blockingAction';
 
 describe('EditorRequestsPageContainer tests', () => {
-    let container                   = null;
-    let useSelectorSpy              = null;
-    let useDispatchSpy              = null;
-    let updateEditorPermissionsMock = null;
-    let loadEditorRequestsMock      = null;
-    let createBlockingActionMock    = null;
-    const requests                  = [{id: 1, user: {}}, {id: 2, user: {}}, {id: 3, user: {}}]
-    const loadEditorRequestsReturn  = {payload: {views: requests, lastPage: 3, currentPage: 2}};
+    let container                       = null;
+    let useSelectorSpy                  = null;
+    let useDispatchSpy                  = null;
+    let updateEditorPermissionsMock     = null;
+    let loadEditorRequestsMock          = null;
+    let createBlockingActionMock        = null;
+    const requests                      = [{id: 1, user: {}}, {id: 2, user: {}}, {id: 3, user: {}}]
+    const loadEditorRequestsReturn      = {payload: {views: requests, lastPage: 3, currentPage: 2}};
     const updateEditorPermissionsReturn = {payload: {data: {}}};
 
     beforeEach(() => {
@@ -134,7 +134,6 @@ describe('EditorRequestsPageContainer tests', () => {
         createBlockingActionMock    = jest.spyOn(createBlockingActions, 'default');
 
         useSelectorSpy.mockReturnValue({});
-        useDispatchSpy.mockReturnValue(jest.fn());
         updateEditorPermissionsMock.mockImplementation(jest.fn(() => updatePermissionsReturn));
         loadEditorRequestsMock.mockImplementation(jest.fn(() => loadRequestsReturn));
         useDispatchSpy.mockImplementation(jest.fn());

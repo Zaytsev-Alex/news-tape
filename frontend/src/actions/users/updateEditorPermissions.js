@@ -12,6 +12,7 @@ const updateEditorPermissions = createAsyncThunk(
         catch (response) {
             throw response.data;
         }
-    });
+    }
+);
 
 export default updateEditorPermissions;

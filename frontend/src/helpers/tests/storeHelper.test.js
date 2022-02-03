@@ -1,5 +1,6 @@
 import * as storeHelper from '../storeHelper';
 import store from '../../store';
+import {selectNews} from '../storeHelper';
 
 describe('store helper tests', () => {
     const storeState = store.getState();
@@ -37,5 +38,10 @@ describe('store helper tests', () => {
     test('selectUserAuthToken should extract auth token from user\'s auth data', () => {
         const authToken = storeHelper.selectUserAuthToken(storeState);
         expect(authToken).toBe(storeHelper.getUserData(storeState)?.token);
+    });
+
+    test('selectNews should extract news state', () => {
+        const newsState = storeHelper.selectNews(storeState);
+        expect(newsState).toBe(storeHelper.selectApplication(storeState).news);
     });
 });

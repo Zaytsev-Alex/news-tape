@@ -64,6 +64,7 @@ const SignUpPage = ({signUpUser}) => {
                             onChange={changeValueHandlers[FIELD_NAMES.FIRST_NAME]}
                             value={userData[FIELD_NAMES.FIRST_NAME] || ''}
                             labelAlignment="left"
+                            maxLength={255}
                             required
                         />
                         <Input
@@ -73,6 +74,7 @@ const SignUpPage = ({signUpUser}) => {
                             onChange={changeValueHandlers[FIELD_NAMES.LAST_NAME]}
                             value={userData[FIELD_NAMES.LAST_NAME] || ''}
                             labelAlignment="left"
+                            maxLength={255}
                             required
                         />
                         <Input
@@ -83,6 +85,7 @@ const SignUpPage = ({signUpUser}) => {
                             value={userData[FIELD_NAMES.EMAIL] || ''}
                             error={isEmailValid ? null : 'Email is not valid'}
                             labelAlignment="left"
+                            maxLength={255}
                             required
                         />
                         <StrongPasswordInput
@@ -93,6 +96,7 @@ const SignUpPage = ({signUpUser}) => {
                             passwordState={passwordState}
                             onChange={changeValueHandlers[FIELD_NAMES.PASSWORD]}
                             labelAlignment="left"
+                            maxLength={255}
                             required
                         />
                         <CheckboxToggle

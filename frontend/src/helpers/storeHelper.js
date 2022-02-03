@@ -8,6 +8,7 @@ export const selectApplication = (state) => state.application;
 export const getUserData      = createSelector([selectUserAuth], (userAuth) => userAuth.user);
 export const selectAppLoading = createSelector([selectApplication], (app) => app.loading);
 export const selectAppError   = createSelector([selectApplication], (app) => app.error);
+export const selectNews       = createSelector([selectApplication], (app) => app.news);
 
 export const selectUserAuthToken = (storeState) => {
     return getUserData(storeState)?.token;

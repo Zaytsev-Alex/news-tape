@@ -41,6 +41,7 @@ const SignInPage = ({signInUser}) => {
                             onChange={changeValueHandlers[FIELD_NAMES.EMAIL]}
                             value={userData[FIELD_NAMES.EMAIL] || ''}
                             labelAlignment="left"
+                            maxLength={255}
                             required
                         />
                         <Input
@@ -50,6 +51,7 @@ const SignInPage = ({signInUser}) => {
                             onChange={changeValueHandlers[FIELD_NAMES.PASSWORD]}
                             value={userData[FIELD_NAMES.PASSWORD] || ''}
                             labelAlignment="left"
+                            maxLength={255}
                             required
                         />
                         <Button

@@ -88,7 +88,7 @@ describe('SignUpPage tests', () => {
 
     function expectSubmitButtonIsDisabled() {
         const submitButton = container.querySelector('.submit-button');
-        expect(submitButton).toBeInTheDocument();
+        expect(submitButton).toBeDisabled();
     }
 });
 

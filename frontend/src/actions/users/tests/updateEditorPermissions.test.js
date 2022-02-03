@@ -18,9 +18,7 @@ describe('updateEditorPermissions action tests', () => {
 
     it('updateEditorPermissions action should return data, when action is fulfilled', async () => {
         updateEditorPermissionsServiceMock.mockImplementation(() => Promise.resolve(responseMock));
-
         const response = await store.dispatch(updateEditorPermissions(requestData));
-
         expect(response.payload).toBe(responseMock.data);
     });
 
@@ -30,7 +28,7 @@ describe('updateEditorPermissions action tests', () => {
         expect(response.error).toEqual({message: errorMessage});
     });
 
-    it('sign in action should call service with correct parameters', async () => {
+    it('updateEditorPermissions action should call service with correct parameters', async () => {
         await store.dispatch(updateEditorPermissions(requestData));
         expect(updateEditorPermissionsServiceMock).toBeCalledWith(requestData.requestId, {approve: requestData.approve});
     });

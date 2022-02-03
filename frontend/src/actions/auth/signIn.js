@@ -12,6 +12,7 @@ const signIn = createAsyncThunk(
         catch (response) {
             throw response.data;
         }
-    });
+    }
+);
 
 export default signIn;
