@@ -15,7 +15,7 @@ describe('load editor requests service tests', () => {
         delete global.fetch;
     });
 
-    test('loadEditorRequests should make request to corresponding endpoint with given body', () => {
+    it('loadEditorRequests should make request to corresponding endpoint with given body', () => {
         loadEditorRequests(requestData);
         expect(global.fetch).toBeCalledWith(
             requestUrl,

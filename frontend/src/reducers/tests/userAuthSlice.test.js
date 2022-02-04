@@ -14,17 +14,17 @@ describe('userAuthSlice tests', () => {
         applyAction(logout());
     });
 
-    test('SIGN_UP_FULFILLED should set user\'s data', () => {
+    it('SIGN_UP_FULFILLED should set user\'s data', () => {
         expect(loggedInUserState.user).toBe(userData);
     });
 
-    test('logout action should reset user\'s data', () => {
+    it('logout action should reset user\'s data', () => {
         expect(loggedInUserState.user).toBe(userData);
         const loggedOutState = applyAction(logout(), loggedInUserState);
         expect(loggedOutState.user).toBe(null);
     });
 
-    test('SIGN_IN_FULFILLED should set user\'s data', () => {
+    it('SIGN_IN_FULFILLED should set user\'s data', () => {
         const signInState = applyAction({type: SIGN_IN_FULFILLED, payload: userData});
         expect(signInState.user).toBe(userData);
     });

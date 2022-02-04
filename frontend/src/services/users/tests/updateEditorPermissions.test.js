@@ -16,7 +16,7 @@ describe('update user editor\'s permissions service tests', () => {
         delete global.fetch;
     });
 
-    test('updateEditorPermissions should make request to corresponding endpoint with given body', () => {
+    it('updateEditorPermissions should make request to corresponding endpoint with given body', () => {
         updateEditorPermissions(requestId, requestBody);
         expect(global.fetch).toBeCalledWith(
             `${requestUrl}/${requestId}`,

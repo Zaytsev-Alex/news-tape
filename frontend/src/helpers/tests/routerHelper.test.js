@@ -19,7 +19,7 @@ describe('router helper tests', () => {
         container = null;
     });
 
-    test('requireAuth should return requesting component if user is authorized and have to be authorized', () => {
+    it('requireAuth should return requesting component if user is authorized and have to be authorized', () => {
         const Component = requireAuth(loggedInUser, RequestingComponent);
         act(() => {
             const renderRes = render(makeRouterContainer(Component, history, redirectingUrl, requestingUrl));
@@ -28,7 +28,7 @@ describe('router helper tests', () => {
         expect(history.location.pathname).toEqual(requestingUrl);
     });
 
-    test('requireAuth should return redirect component if user is authorized, but have to be unauthorized', () => {
+    it('requireAuth should return redirect component if user is authorized, but have to be unauthorized', () => {
         const Component = requireAuth(loggedInUser, RequestingComponent, true, redirectingUrl);
         act(() => {
             const renderRes = render(makeRouterContainer(Component, history, redirectingUrl, requestingUrl));
@@ -37,7 +37,7 @@ describe('router helper tests', () => {
         expect(history.location.pathname).toEqual(redirectingUrl);
     });
 
-    test('requireAuth should return redirect component if user is unauthorized, but have to be authorized', () => {
+    it('requireAuth should return redirect component if user is unauthorized, but have to be authorized', () => {
         const Component = requireAuth(loggedOutUser, RequestingComponent, false, redirectingUrl);
         act(() => {
             const renderRes = render(makeRouterContainer(Component, history, redirectingUrl, requestingUrl));
@@ -46,7 +46,7 @@ describe('router helper tests', () => {
         expect(history.location.pathname).toEqual(redirectingUrl);
     });
 
-    test('requireAuth should return requesting component if user is unauthorized and have to be unauthorized', () => {
+    it('requireAuth should return requesting component if user is unauthorized and have to be unauthorized', () => {
         const Component = requireAuth(loggedOutUser, RequestingComponent, true, redirectingUrl);
         act(() => {
             const renderRes = render(makeRouterContainer(Component, history, redirectingUrl, requestingUrl));

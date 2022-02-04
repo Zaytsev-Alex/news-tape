@@ -15,7 +15,7 @@ describe('sign in user service tests', () => {
         delete global.fetch;
     });
 
-    test('signInUser should make request to sign in endpoint with given body', () => {
+    it('signInUser should make request to sign in endpoint with given body', () => {
         signInUser(requestData);
         expect(global.fetch).toBeCalledWith(
             requestUrl,

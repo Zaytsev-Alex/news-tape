@@ -22,7 +22,7 @@ describe('apiHelper tests', () => {
         delete global.fetch;
     });
 
-    test('request should be made with given url and default rest parameters (method, headers)', () => {
+    it('request should be made with given url and default rest parameters (method, headers)', () => {
         restFetch(requestUrl);
         expect(global.fetch).toBeCalledWith(
             requestUrl,
@@ -33,20 +33,20 @@ describe('apiHelper tests', () => {
         );
     });
 
-    test('promise reject should be returned when ok is false in response', () => {
+    it('promise reject should be returned when ok is false in response', () => {
         global.fetch = jest.fn().mockImplementation(setupFetchStub(responseData, false));
 
         expect(() => restFetch(requestUrl)).rejects.toThrow();
     });
 
-    test('error while requesting should be handled and wrapped', () => {
+    it('error while requesting should be handled and wrapped', () => {
         global.fetch = jest.fn().mockImplementation(setupFetchStub(responseData, false, true));
         expect(
             () => restFetch(requestUrl)
         ).rejects.toThrowError({data: {message: 'Fetch error'}, status: -1});
     });
 
-    test('restFetchWithToken should add token to request', () => {
+    it('restFetchWithToken should add token to request', () => {
         restFetchWithToken(requestUrl);
         expect(global.fetch).toBeCalledWith(
             requestUrl,
@@ -57,7 +57,7 @@ describe('apiHelper tests', () => {
         );
     });
 
-    test('restFetchWithToken should add token to request', () => {
+    it('restFetchWithToken should add token to request', () => {
         restFetchWithToken(requestUrl);
         expect(global.fetch).toBeCalledWith(
             requestUrl,
@@ -68,7 +68,7 @@ describe('apiHelper tests', () => {
         );
     });
 
-    test('restFetchWithToken shouldn\'t add token to request if token is undefined', () => {
+    it('restFetchWithToken shouldn\'t add token to request if token is undefined', () => {
         storeHelper.selectUserAuthToken.mockClear();
         jest.spyOn(storeHelper, "selectUserAuthToken").mockImplementation(() => undefined);
         restFetchWithToken(requestUrl);
@@ -81,7 +81,7 @@ describe('apiHelper tests', () => {
         );
     });
 
-    test('post request should be made with body if it is given', () => {
+    it('post request should be made with body if it is given', () => {
         const requestBody = {key: 'value'};
         restFetch(requestUrl, 'post', requestBody);
         expect(global.fetch).toBeCalledWith(

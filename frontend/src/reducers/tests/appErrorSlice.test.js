@@ -13,12 +13,12 @@ describe('appErrorSlice tests', () => {
          applyAction(clearError());
     });
 
-    test('setError should set error data', () => {
+    it('setError should set error data', () => {
         expect(stateWithError.error).toBe(errorData);
         expect(stateWithError.isError).toBeTruthy();
     });
 
-    test('clearError should clear error data', () => {
+    it('clearError should clear error data', () => {
         expect(stateWithError.error).toBe(errorData);
         expect(stateWithError.isError).toBeTruthy();
         const clearedState = applyAction(clearError(), stateWithError);

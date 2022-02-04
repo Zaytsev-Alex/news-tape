@@ -1,4 +1,4 @@
-import {Injectable} from '@nestjs/common';
+import {BadRequestException, Injectable} from '@nestjs/common';
 import {CreateNewsDto} from './dto/create-news.dto';
 import {News} from './entities/news.entity';
 import {InjectRepository} from '@nestjs/typeorm';
@@ -36,7 +36,13 @@ export class NewsService {
         );
     }
 
-    findOne(id: number): Promise<News> {
-        return this.newsRepository.findOne(id);
+    async findOne(id: number): Promise<News> {
+        const foundNews = await this.newsRepository.findOne(id);
+
+        if (!foundNews) {
+            throw new BadRequestException('News with requested id does not exist.');
+        }
+
+        return foundNews;
     }
 }

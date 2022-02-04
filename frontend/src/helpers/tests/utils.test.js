@@ -1,4 +1,4 @@
-import {extractUserName} from '../utils';
+import {convertDateTime, extractUserName} from '../utils';
 
 describe('utils tests', () => {
     describe('extractUserName tests', () => {
@@ -16,6 +16,17 @@ describe('utils tests', () => {
 
         it('should return empty string when no user is given', () => {
             expect(extractUserName()).toBe('');
+        });
+    });
+
+    describe('convertDateTime tests', () => {
+        it('if no end date is given, should return empty string', () => {
+            expect(convertDateTime()).toBe('');
+        });
+
+        it('if date is given, should return converted date', () => {
+            const date = new Date();
+            expect(convertDateTime(date)).toBe(date.toDateString());
         });
     });
 });

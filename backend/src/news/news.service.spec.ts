@@ -4,7 +4,7 @@ import {getRepositoryToken} from '@nestjs/typeorm';
 import {MockType, repositoryMockFactory} from '../helpers/testUtils';
 import {News} from './entities/news.entity';
 import {Repository} from 'typeorm';
-import {extractUserView} from '../helpers/utils';
+import {BadRequestException} from '@nestjs/common';
 
 describe('NewsService', () => {
     let service: NewsService;
@@ -78,6 +78,13 @@ describe('NewsService', () => {
         it('should return saved news item', async () => {
             repositoryMock.findOne.mockReturnValue(mockNews);
             expect(await service.findOne(mockNews.id)).toEqual(mockNews);
+        });
+
+        it('should throw error, when news cannot be found', async () => {
+            repositoryMock.findOne.mockReturnValue(null);
+            await expect(
+                async () => await service.findOne(mockNews.id)
+            ).rejects.toThrowError(BadRequestException);
         });
     });
 

@@ -15,7 +15,7 @@ describe('crete news service tests', () => {
         delete global.fetch;
     });
 
-    test('createNews should make request to corresponding endpoint with given body', () => {
+    it('createNews should make request to corresponding endpoint with given body', () => {
         createNews(requestData);
         expect(global.fetch).toBeCalledWith(
             requestUrl,
