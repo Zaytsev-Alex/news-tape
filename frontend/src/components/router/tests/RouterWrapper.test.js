@@ -19,9 +19,11 @@ describe('RouterWrapper tests', () => {
     });
 
     it('RouterWrapper should be rendered', () => {
+        let container = null;
         act(() => {
-            render(<RouterWrapper/>);
+            const renderRes = render(<RouterWrapper/>);
+            container       = renderRes.container;
         });
-        expect(screen.getByText('root')).toBeInTheDocument();
+        expect(container.querySelector('.app')).toBeInTheDocument();
     });
 });

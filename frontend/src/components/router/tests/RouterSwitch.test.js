@@ -12,7 +12,7 @@ describe('RouterSwitch tests', () => {
         useSelectorSpy       = jest.spyOn(reactRedux, 'useSelector');
         const useDispatchSpy = jest.spyOn(reactRedux, 'useDispatch');
         useSelectorSpy.mockReturnValue(loggedInUser);
-        useDispatchSpy.mockReturnValue(jest.fn());
+        useDispatchSpy.mockReturnValue(jest.fn(() => Promise.resolve()));
     });
 
     afterEach(() => {
@@ -20,15 +20,17 @@ describe('RouterSwitch tests', () => {
     });
 
     it('Home page should be rendered by default for authorized user', () => {
+        let container = null;
         act(() => {
-            render(
+            const renderRes = render(
                 <BrowserRouter>
                     <RouterSwitch store={loggedInUser}/>
                 </BrowserRouter>
             );
+            container       = renderRes.container;
         });
 
-        expect(screen.getByText('root')).toBeInTheDocument();
+        expect(container.querySelector('.app')).toBeInTheDocument();
     });
 
     it('Sign up page should be rendered by default for unauthorized user', () => {

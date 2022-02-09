@@ -1,5 +1,6 @@
 import * as blockingActions from '../blockingAction';
 import * as errorActions from '../../reducers/appErrorSlice';
+import * as authActions from '../../reducers/userAuthSlice';
 import createErrorCatchingAction from '../createErrorCatchingAction';
 
 describe('createErrorCatchingAction tests', () => {
@@ -38,5 +39,14 @@ describe('createErrorCatchingAction tests', () => {
         const rejectedDispatch = (action) => Promise.reject(action);
         await createErrorCatchingAction(rejectedDispatch, rejectedAction, null, false);
         expect(setErrorMock).toBeCalledWith(errorMessage);
+    });
+
+    it('should call logout action when user should be logged out', async () => {
+        const logoutSpy = jest.spyOn(authActions, 'logout').mockImplementation(jest.fn());
+        const errorMessage     = 'Unauthorized';
+        const rejectedAction   = () => ({message: errorMessage});
+        const rejectedDispatch = (action) => Promise.reject(action);
+        await createErrorCatchingAction(rejectedDispatch, rejectedAction, null, false);
+        expect(logoutSpy).toBeCalledTimes(1);
     });
 });

@@ -1,5 +1,6 @@
 import createBlockingAction from './blockingAction';
 import {setError} from '../reducers/appErrorSlice';
+import {logout} from '../reducers/userAuthSlice';
 
 /**
  * Creates action that handles error and shows global error popup
@@ -20,8 +21,17 @@ const createErrorCatchingAction = (dispatch, action, options, blockUI = true) =>
         })
         .catch((_error) => {
             dispatch(setError(_error.message));
+
+            if (_shouldForceLogout(_error)) {
+                dispatch(logout());
+            }
+
             return _error;
         });
 };
+
+function _shouldForceLogout(error) {
+    return error.message === 'Unauthorized';
+}
 
 export default createErrorCatchingAction;

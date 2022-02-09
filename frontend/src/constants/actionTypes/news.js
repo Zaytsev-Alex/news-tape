@@ -11,3 +11,8 @@ export const LOAD_NEWS_ITEM           = `${PREFIX}/LOAD_NEWS_ITEM`;
 export const LOAD_NEWS_ITEM_FULFILLED = actionHelper.getFulfilledAsyncActionType(LOAD_NEWS_ITEM);
 export const LOAD_NEWS_ITEM_REJECTED  = actionHelper.getRejectedAsyncActionType(LOAD_NEWS_ITEM);
 export const LOAD_NEWS_ITEM_PENDING   = actionHelper.getPendingAsyncActionType(LOAD_NEWS_ITEM);
+
+export const LOAD_NEWS           = `${PREFIX}/LOAD_NEWS`;
+export const LOAD_NEWS_FULFILLED = actionHelper.getFulfilledAsyncActionType(LOAD_NEWS);
+export const LOAD_NEWS_REJECTED  = actionHelper.getRejectedAsyncActionType(LOAD_NEWS);
+export const LOAD_NEWS_PENDING   = actionHelper.getPendingAsyncActionType(LOAD_NEWS);
