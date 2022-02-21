@@ -10,13 +10,13 @@ import { NewsModule } from './news/news.module';
 @Module({
     imports: [
         TypeOrmModule.forRoot({
-            type: 'postgres',
-            host: 'postgres',
-            port: 5432,
-            username: 'root',
-            password: 'root',
-            database: 'news_tape',
-            entities: [__dirname + '/**/*.entity{.ts,.js}'],
+            type:        'postgres',
+            host:        'postgres',
+            port:        5432,
+            username:    process.env.POSTGRES_USER,
+            password:    process.env.POSTGRES_PASSWORD,
+            database:    process.env.POSTGRES_DB,
+            entities:    [__dirname + '/**/*.entity{.ts,.js}'],
             synchronize: true,
         }),
         UsersModule,

@@ -13,13 +13,14 @@ services:
 
   backend:
     container_name: backend
-    env_file:
-      - .env
     build:
       context: ./backend
       dockerfile: Dockerfile
     environment:
       CHOKIDAR_USEPOLLING: "true"
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     depends_on:
       - db
     volumes:
@@ -41,9 +42,9 @@ services:
     image: postgres
     restart: always
     environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: root
-      POSTGRES_DB: news_tape
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
       PGDATA: /opt/pgsql/data
     ports:
       - "5432:5432"
