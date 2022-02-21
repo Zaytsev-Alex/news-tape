@@ -4,22 +4,16 @@ import {AuthService} from './auth.service';
 import {UsersService} from '../users/users.service';
 import {userServiceMockFactory} from '../helpers/testUtils';
 import {JwtModule} from '@nestjs/jwt';
+import {SignUpDto} from './dto/sign-up.dto';
+import {SignInDto} from './dto/sign-in.dto';
 
 describe('AuthController', () => {
     let controller: AuthController;
     let service: AuthService;
 
-    const signUpDto        = {
-        firstName:     'first name',
-        lastName:      'last name',
-        email:         'email@email.com',
-        password:      '123!@#asdASD',
-        requestEditor: false
-    };
-    const signInDto        = {
-        email:    signUpDto.email,
-        password: signUpDto.password,
-    };
+    const signUpDto = new SignUpDto();
+    const signInDto = new SignInDto();
+
     const authResponseMock = {
         id:        1,
         firstName: signUpDto.firstName,

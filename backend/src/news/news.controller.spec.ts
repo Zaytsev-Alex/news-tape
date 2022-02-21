@@ -5,14 +5,16 @@ import {MockType, repositoryMockFactory} from '../helpers/testUtils';
 import {getRepositoryToken} from '@nestjs/typeorm';
 import {News} from './entities/news.entity';
 import {Repository} from 'typeorm';
+import {CreateNewsDto} from './dto/create-news.dto';
 
 describe('NewsController', () => {
     let controller: NewsController;
     let service: NewsService;
     let repositoryMock: MockType<Repository<News>>;
 
-    const createNewsDto = {content: 'content', title: 'title'};
-    const mockNews      = {...createNewsDto, createdDate: new Date(), id: 1};
+    const createNewsDto = new CreateNewsDto();
+    const _news         = new News();
+    const mockNews      = {..._news, createdDate: new Date(), id: 1};
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({

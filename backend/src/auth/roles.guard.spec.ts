@@ -1,18 +1,10 @@
 import {RolesGuard} from './roles.guard';
-import {ExecutionContext, ForbiddenException, UnauthorizedException} from '@nestjs/common';
+import {User} from '../users/entities/user.entity';
 
 describe('RolesGuard', () => {
     let rolesGuard: RolesGuard;
 
-    const userDto = {
-        id:           1,
-        firstName:    'firstName',
-        lastName:     'lastName',
-        email:        'email@email.email',
-        password:     'password',
-        isAdmin:      true,
-        hashPassword: () => {}
-    };
+    const userDto = new User();
 
     beforeEach(() => {
         rolesGuard = new RolesGuard(null);
@@ -30,7 +22,7 @@ describe('RolesGuard', () => {
         });
 
         it('should return true when user is an admin', () => {
-            const mockContext = createMockExecutionContext(userDto);
+            const mockContext = createMockExecutionContext({...userDto, isAdmin: true});
 
             // @ts-ignore
             const canActivate = rolesGuard.canActivate(mockContext);

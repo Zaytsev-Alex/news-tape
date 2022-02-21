@@ -21,7 +21,6 @@ describe('response paginator utils tests', () => {
 
     describe('paginateResponse', () => {
         const views = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        const paginateResponseParameters = [[views, views.length], 1, 10];
 
         function getPaginateResponseParameters(viewsList = views, total = views.length, currentPage = 1, limit = 10, viewConverter) {
             return [[viewsList, total], currentPage, limit, viewConverter];

@@ -5,19 +5,15 @@ import {Repository} from 'typeorm';
 import {EditorRequest} from './entities/editor-request.entity';
 import {EditorRequestsController} from './editor-requests.controller';
 import {EditorRequestsService} from './editor-requests.service';
+import {User} from '../users/entities/user.entity';
+import {extractUserView} from '../helpers/utils';
 
 describe('EditorRequestsController', () => {
     let controller: EditorRequestsController;
     let service: EditorRequestsService;
     let repositoryMock: MockType<Repository<EditorRequest>>;
 
-    const userViewMock = {
-        id:        1,
-        firstName: 'first name',
-        lastName:  'last name',
-        email:     'email@email.com',
-        isAdmin:    false
-    };
+    const userViewMock = extractUserView(new User());
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({

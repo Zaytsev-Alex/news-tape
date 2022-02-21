@@ -6,23 +6,16 @@ import {editorRequestsServiceMockFactory, MockType, userServiceMockFactory} from
 import {EditorRequestsService} from '../editor-requests/editor-requests.service';
 import {extractUserView} from '../helpers/utils';
 import {User} from '../users/entities/user.entity';
+import {SignUpDto} from './dto/sign-up.dto';
+import {SignInDto} from './dto/sign-in.dto';
 
 describe('AuthService', () => {
     let service: AuthService;
     let editorRequestsServiceMock: EditorRequestsService;
     let usersServiceMock: MockType<UsersService>;
 
-    const signUpDto = {
-        firstName:     'first name',
-        lastName:      'last name',
-        email:         'email@email.com',
-        password:      '123!@#asdASD',
-        requestEditor: false,
-    };
-    const signInDto = {
-        email:    'email@email.com',
-        password: '123!@#asdASD',
-    };
+    const signUpDto = new SignUpDto();
+    const signInDto = new SignInDto();
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({

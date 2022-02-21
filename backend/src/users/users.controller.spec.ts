@@ -6,19 +6,14 @@ import {User} from './entities/user.entity';
 import {editorRequestsServiceMockFactory, MockType, repositoryMockFactory} from '../helpers/testUtils';
 import {Repository} from 'typeorm';
 import {EditorRequestsService} from '../editor-requests/editor-requests.service';
+import {extractUserView} from '../helpers/utils';
 
 describe('UsersController', () => {
     let controller: UsersController;
     let service: UsersService;
     let repositoryMock: MockType<Repository<User>>;
 
-    const userViewMock = {
-        id:        1,
-        firstName: 'first name',
-        lastName:  'last name',
-        email:     'email@email.com',
-        isAdmin:    false
-    };
+    const userViewMock = extractUserView(new User());
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({

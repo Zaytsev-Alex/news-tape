@@ -8,33 +8,21 @@ import {EditorRequestsService} from '../editor-requests/editor-requests.service'
 import {CreateUserDto} from './dto/create-user.dto';
 import {BadRequestException} from '@nestjs/common';
 import {getHashedPassword} from '../helpers/passwordHelper';
+import {LoginUserDto} from './dto/login-user.dto';
 
 describe('UsersService', () => {
     let service: UsersService;
     let editorRequestsService: MockType<EditorRequestsService>;
     let repositoryMock: MockType<Repository<User>>;
 
-    const createUserDto: CreateUserDto = {
-        firstName:     'firstName',
-        lastName:      'lastName',
-        email:         'email@email.email',
-        password:      'password',
-        requestEditor: false
-    };
-    const loginUserDto                 = {
+    const createUserDto           = new CreateUserDto();
+    const loginUserDto            = {
+        ...new LoginUserDto(),
         email:    'email@email.email',
         password: 'password'
     };
-    const userDto                      = {
-        id:           1,
-        firstName:    'firstName',
-        lastName:     'lastName',
-        email:        'email@email.email',
-        password:     'password',
-        isAdmin:      false,
-        hashPassword: () => {}
-    };
-    const affectedRowsWhileUpdate      = 1;
+    const userDto                 = {...new User(), id: 1,};
+    const affectedRowsWhileUpdate = 1;
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
@@ -140,12 +128,12 @@ describe('UsersService', () => {
 
     describe('giveEditorsPermissions', () => {
         it('should call update method with corresponding data', async () => {
-            await service.giveEditorsPermissions(userDto);
+            await service.giveEditorsPermissions(userDto as User);
             expect(repositoryMock.update).toBeCalledWith(1, {isAdmin: true});
         });
 
         it('should return number of affected rows', async () => {
-            expect(await service.giveEditorsPermissions(userDto)).toBe(affectedRowsWhileUpdate);
+            expect(await service.giveEditorsPermissions(userDto as User)).toBe(affectedRowsWhileUpdate);
         });
     });
 });

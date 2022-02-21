@@ -3,21 +3,14 @@ import {UsersService} from '../users/users.service';
 import {MockType, userServiceMockFactory} from '../helpers/testUtils';
 import {JwtStrategy} from './jwt.strategy';
 import {UnauthorizedException} from '@nestjs/common';
+import {User} from '../users/entities/user.entity';
 
 describe('JwtStrategy', () => {
     let jwtStrategy: JwtStrategy;
     let usersServiceMock: MockType<UsersService>;
 
     const email   = 'email@email.com';
-    const userDto = {
-        id:           1,
-        firstName:    'firstName',
-        lastName:     'lastName',
-        email:        email,
-        password:     'password',
-        isAdmin:      false,
-        hashPassword: () => {}
-    };
+    const userDto = new User();
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({

@@ -6,20 +6,13 @@ import {MockType, repositoryMockFactory} from '../helpers/testUtils';
 import {EditorRequest} from './entities/editor-request.entity';
 import {NotFoundException} from '@nestjs/common';
 import {extractUserView} from '../helpers/utils';
+import {User} from '../users/entities/user.entity';
 
 describe('EditorRequestsService', () => {
     let service: EditorRequestsService;
     let repositoryMock: MockType<Repository<EditorRequest>>;
 
-    const userDto = {
-        id:           1,
-        firstName:    'firstName',
-        lastName:     'lastName',
-        email:        'email@email.email',
-        password:     'password',
-        isAdmin:      false,
-        hashPassword: () => {}
-    };
+    const userDto = new User();
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
