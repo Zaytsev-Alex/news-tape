@@ -6,10 +6,9 @@ import createErrorCatchingAction from '../../actions/createErrorCatchingAction';
 import loadNewsAction from '../../actions/news/loadNews';
 import {useUserRedirect} from '../../helpers/routerHelper';
 import {SIGN_UP} from '../../constants/routerPaths';
+import {RECORDS_ON_PAGE} from './constans';
 
-// TODO: update to getting NEXT.JS props
-const RECORDS_ON_PAGE = 10;
-
+// TODO: Change to next js props
 const NewsTapeContainer = () => {
     const dispatch = useDispatch();
     const userData = useSelector(getUserData);

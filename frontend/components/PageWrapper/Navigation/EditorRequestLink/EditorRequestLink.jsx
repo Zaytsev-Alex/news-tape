@@ -1,10 +1,14 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import {EDITOR_REQUESTS} from '../../../../constants/routerPaths';
+import Link from 'next/link';
 
 const EditorRequestLink = () => {
     return (
-        <Link to={EDITOR_REQUESTS} className="link navigation__item editor-request">Editor Requests</Link>
+        <Link href={EDITOR_REQUESTS}>
+            <a className="link navigation__item editor-request">
+                Editor Requests
+            </a>
+        </Link>
     );
 };
 

@@ -1,6 +1,5 @@
 import {restFetch, restFetchWithToken} from '../apiHelper';
 import * as storeHelper from '../storeHelper';
-import {screen} from '@testing-library/react';
 
 describe('apiHelper tests', () => {
     const responseData   = {};

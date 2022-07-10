@@ -2,8 +2,8 @@ import {act, render} from '@testing-library/react';
 import {BrowserRouter} from 'react-router-dom';
 import NewsTapeContainer from '../NewsTapeContainer';
 import * as reactRedux from 'react-redux';
-import * as createBlockingActions from '../../../../actions/blockingAction';
-import * as loadNewsActions from '../../../../actions/news/loadNews';
+import * as createBlockingActions from '../../../actions/blockingAction';
+import * as loadNewsActions from '../../../actions/news/loadNews';
 import {nextButtonPress} from './NewsCard.test';
 
 describe('NewsTapeContainer tests', () => {

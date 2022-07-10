@@ -1,6 +1,5 @@
 import * as storeHelper from '../storeHelper';
 import store from '../../store';
-import {selectNews} from '../storeHelper';
 
 describe('store helper tests', () => {
     const storeState = store.getState();

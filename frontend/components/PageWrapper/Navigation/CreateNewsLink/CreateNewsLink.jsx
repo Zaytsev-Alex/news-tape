@@ -1,10 +1,14 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import {CREATE_NEWS} from '../../../../constants/routerPaths';
+import Link from 'next/link';
 
 const CreateNewsLink = () => {
     return (
-        <Link to={CREATE_NEWS} className="link navigation__item create-news-link">Create news</Link>
+        <Link href={CREATE_NEWS}>
+            <a className="link navigation__item create-news-link">
+                Create news
+            </a>
+        </Link>
     );
 };
 
