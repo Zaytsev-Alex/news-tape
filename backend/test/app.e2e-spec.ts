@@ -43,7 +43,7 @@ describe('e2e tests', () => {
     });
 
     it('defined', async () => {
-        expect(app).toBeDefined();
+        return expect(app).toBeDefined();
     });
 
     describe('/auth', () => {
@@ -74,29 +74,25 @@ describe('e2e tests', () => {
 
         describe('/sign-in', () => {
             describe('POST', () => {
-                it('when data is valid and user exists, then user should be logged in', (done) => {
-                    request(app.getHttpServer())
+                it('when data is valid and user exists, then user should be logged in', () => {
+                    return request(app.getHttpServer())
                         .post('/auth/sign-in')
                         .send(signInDto)
                         .expect(200)
                         .then((response) => {
                             expect(response.body.email).toEqual(signInDto.email);
                             expect(response.body.token).toBeDefined();
-                            done();
-                        })
-                        .catch((err) => done(err));
+                        });
                 });
 
-                it('when data is valid and user does not exist, then error should be returned', (done) => {
-                    request(app.getHttpServer())
+                it('when data is valid and user does not exist, then error should be returned', () => {
+                    return request(app.getHttpServer())
                         .post('/auth/sign-in')
                         .send({...signInDto, password: 'wrong password'})
                         .expect(400)
                         .then((response) => {
                             expect(response.body.message).toEqual('Invalid credentials.');
-                            done();
-                        })
-                        .catch((err) => done(err));
+                        });
                 });
             });
         });

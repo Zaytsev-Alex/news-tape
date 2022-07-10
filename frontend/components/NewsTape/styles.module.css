@@ -1,0 +1,51 @@
+.newsCard {
+    padding: 15px;
+    width: 300px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.newsCardContent {
+    max-height: calc(100% - 100px);
+    padding: 15px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.newsCardLink {
+    margin-bottom: 15px;
+}
+
+.markdownViewer {
+    max-height: 95%;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.newsCardButtonsContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.newsCardButton {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+}
+
+.newsCardButton .prev-news,
+.newsCardButton .next-news {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: 60%;
+    background-position: center;
+}
+
+.newsCardButtonDisabled {
+    opacity: 0.5;
+}

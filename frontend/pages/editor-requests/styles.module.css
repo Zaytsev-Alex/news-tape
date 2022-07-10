@@ -1,0 +1,36 @@
+.editorRequests .main {
+    display: flex;
+    flex-direction: column;
+}
+
+.editorRequestsContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    margin-bottom: 30px;
+}
+
+.editorRequestItem {
+    margin: 20px;
+    padding: 15px 10px;
+}
+
+.editorRequestItemButtons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.editorRequestItemName {
+    font-weight: 700;
+    text-align: center;
+}
+
+.editorRequestItemEmail {
+    margin-bottom: 10px;
+    text-align: center;
+}
