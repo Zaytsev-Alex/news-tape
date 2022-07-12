@@ -7,19 +7,26 @@ import {selectUserAuthToken} from './storeHelper';
  * @param {string}  method     Http method name.
  * @param {object}  objectBody Content of request.
  * @param {object}  headers    Headers of request.
+ * @param {string}  token      User auth token that should be used if provided.
  * @return {Promise} Promise object of fetch request.
  */
-export function restFetchWithToken(url, method = 'get', objectBody = {}, headers = {}) {
-    headers = _addToken(headers);
+export function restFetchWithToken(url, method = 'get', objectBody = {}, headers = {}, token) {
+    headers = _addToken(headers, token);
     return restFetch(url, method, objectBody, headers);
 }
 
 /**
  * Adds an application auth token to the request headers.
  * @param {object} headers Headers of http request.
+ * @param {string} token   User auth token that should be used if provided.
  * @return {object} Headers of http request.
  */
-function _addToken(headers ) {
+function _addToken(headers = {}, token) {
+    if (token) {
+        headers.authorization = `Bearer ${token}`;
+        return headers;
+    }
+
     const storeState    = store.getState();
     const authorization = selectUserAuthToken(storeState);
     if (authorization) {

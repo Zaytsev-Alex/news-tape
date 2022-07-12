@@ -11,6 +11,9 @@ const newsSlice = createSlice(
             requestingNewsNotFound: false,
         },
         reducers:      {
+            setNewsData(store, action) {
+                store.newsItem = action.payload;
+            },
             resetNotification(store) {
                 store.notificationType = null;
             },
@@ -36,5 +39,5 @@ const newsSlice = createSlice(
     }
 );
 
-export const {resetNotification, resetNewsItemData} = newsSlice.actions;
+export const {resetNotification, resetNewsItemData, setNewsData} = newsSlice.actions;
 export default newsSlice.reducer;

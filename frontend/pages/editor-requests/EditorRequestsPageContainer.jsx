@@ -1,27 +1,29 @@
 import React, {useEffect, useState} from 'react';
-import EditorRequestsPage from './EditorRequestsPage';
+import PropTypes from 'prop-types';
 import {useDispatch} from 'react-redux';
+import EditorRequestsPage from './EditorRequestsPage';
 import createErrorCatchingAction from '../../actions/createErrorCatchingAction';
 import updateEditorPermissions from '../../actions/users/updateEditorPermissions';
 import loadEditorRequests from '../../actions/editor-requests/loadEditorRequests';
 import {useUserRedirect} from '../../helpers/routerHelper';
 import {SIGN_UP} from '../../constants/routerPaths';
+import {RECORDS_ON_PAGE} from '../../constants/pagination';
+import {setError} from '../../reducers/appErrorSlice';
 
-// TODO: change to next js props
-const RECORDS_ON_PAGE = 10;
-
-const EditorRequestsPageContainer = () => {
+const EditorRequestsPageContainer = ({data, errorMessage}) => {
     const dispatch = useDispatch();
 
     useUserRedirect(false, SIGN_UP);
 
-    const [currentPage, setCurrentPage] = useState(1);
-    const [lastPage, setLastPage]       = useState(1);
-    const [views, setViews]             = useState([]);
+    const [currentPage, setCurrentPage] = useState(data.currentPage || 1);
+    const [lastPage, setLastPage]       = useState(data.lastPage || 1);
+    const [views, setViews]             = useState(data.views || []);
 
     useEffect(() => {
-        loadRequests(currentPage);
-    }, []);
+        if (errorMessage) {
+            dispatch(setError(errorMessage));
+        }
+    }, [errorMessage]);
 
     function approvePermissions(requestId) {
         return updatePermissions(requestId, true);
@@ -69,6 +71,11 @@ const EditorRequestsPageContainer = () => {
             requests={views}
         />
     );
+};
+
+EditorRequestsPageContainer.propTypes = {
+    data: PropTypes.object,
+    errorMessage: PropTypes.string,
 };
 
 export default EditorRequestsPageContainer;

@@ -4,25 +4,34 @@ import NewsViewerPage from './NewsViewerPage';
 import loadNewsItem from '../../../actions/news/loadNewsItem';
 import createErrorCatchingAction from '../../../actions/createErrorCatchingAction';
 import {selectNews} from '../../../helpers/storeHelper';
-import {resetNewsItemData} from '../../../reducers/newsSlice';
+import {resetNewsItemData, setNewsData} from '../../../reducers/newsSlice';
 import {useRouter} from 'next/router';
+import {setError} from '../../../reducers/appErrorSlice';
 
-// TODO: Change to next js props
-const NewsViewerPageContainer = () => {
+const NewsViewerPageContainer = ({data, errorMessage}) => {
     const newState = useSelector(selectNews);
     const dispatch = useDispatch();
     const router   = useRouter();
     const { id }   = router.query;
 
     useEffect(() => {
-        if (parseInt(id, 10)) {
+        if (data) {
+            dispatch(setNewsData(data));
+        }
+        else if (parseInt(id, 10)) {
             createErrorCatchingAction(dispatch, loadNewsItem, id);
         }
 
         return () => {
             dispatch(resetNewsItemData());
         };
-    }, [id]);
+    }, [data, id]);
+
+    useEffect(() => {
+        if (errorMessage) {
+            dispatch(setError(errorMessage));
+        }
+    }, [errorMessage]);
 
     return (
         <NewsViewerPage

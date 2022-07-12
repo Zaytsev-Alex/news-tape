@@ -6,22 +6,24 @@ import createErrorCatchingAction from '../../actions/createErrorCatchingAction';
 import loadNewsAction from '../../actions/news/loadNews';
 import {useUserRedirect} from '../../helpers/routerHelper';
 import {SIGN_UP} from '../../constants/routerPaths';
-import {RECORDS_ON_PAGE} from './constans';
+import {setError} from '../../reducers/appErrorSlice';
+import {RECORDS_ON_PAGE} from '../../constants/pagination';
 
-// TODO: Change to next js props
-const NewsTapeContainer = () => {
+const NewsTapeContainer = ({preloadedData = {}, errorMessage}) => {
     const dispatch = useDispatch();
     const userData = useSelector(getUserData);
 
     useUserRedirect(false, SIGN_UP);
 
-    const [currentPage, setCurrentPage] = useState(1);
-    const [lastPage, setLastPage]       = useState(1);
-    const [views, setViews]             = useState([]);
+    const [currentPage, setCurrentPage] = useState(preloadedData.currentPage || 1);
+    const [lastPage, setLastPage]       = useState(preloadedData.lastPage || 1);
+    const [views, setViews]             = useState(preloadedData.views || []);
 
     useEffect(() => {
-        loadNews(currentPage);
-    }, []);
+        if (errorMessage) {
+            dispatch(setError(errorMessage));
+        }
+    }, [errorMessage]);
 
     function loadMore() {
         return loadNews(currentPage + 1);

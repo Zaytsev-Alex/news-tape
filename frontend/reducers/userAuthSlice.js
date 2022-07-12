@@ -1,5 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {SIGN_IN_FULFILLED, SIGN_UP_FULFILLED} from '../constants/actionTypes/auth';
+import {resetUserToken} from '../helpers/tokenCookieHelper';
 
 const userAuthSlice = createSlice(
     {
@@ -10,6 +11,7 @@ const userAuthSlice = createSlice(
         reducers:      {
             logout(store) {
                 store.user = null;
+                resetUserToken();
             }
         },
         extraReducers: {
